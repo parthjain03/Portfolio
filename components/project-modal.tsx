@@ -35,6 +35,9 @@ interface ProjectModalProps {
 }
 
 export default function ProjectModal({ project, onClose }: ProjectModalProps) {
+  // Split description by || separator to create paragraphs
+  const paragraphs = project.detailedDescription.split('||')
+
   return (
     <div
       className="fixed inset-0 bg-black/50 flex items-center justify-center p-4 z-50"
@@ -63,9 +66,13 @@ export default function ProjectModal({ project, onClose }: ProjectModalProps) {
           {/* Description */}
           <div>
             <h3 className="font-serif text-xl font-semibold mb-4">Overview</h3>
-            <p className="text-foreground/80 leading-relaxed">
-              {project.detailedDescription}
-            </p>
+            <div className="space-y-4">
+              {paragraphs.map((paragraph, index) => (
+                <p key={index} className="text-foreground/80 leading-relaxed">
+                  {paragraph.trim()}
+                </p>
+              ))}
+            </div>
           </div>
 
           {/* Technologies */}
